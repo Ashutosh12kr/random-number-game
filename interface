@@ -1,0 +1,36 @@
+// MySQLDatabase.java
+import java.sql.*;
+
+public class MySQLDatabase implements DatabaseOperations {
+    private Connection conn;
+    private Statement stmt;
+    private ResultSet rs;
+
+    private final String url = "jdbc:mysql://localhost:3306/your_database";
+    private final String user = "your_username";
+    private final String password = "your_password";
+
+    @Override
+    public void connect() throws SQLException {
+        conn = DriverManager.getConnection(url, user, password);
+        System.out.println("Connected to the database.");
+    }
+
+    @Override
+    public void fetchData() throws SQLException {
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery("SELECT * FROM your_table");
+
+        while (rs.next()) {
+            System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
+        }
+    }
+
+    @Override
+    public void close() throws SQLException {
+        if (rs != null) rs.close();
+        if (stmt != null) stmt.close();
+        if (conn != null) conn.close();
+        System.out.println("Connection closed.");
+    }
+}
