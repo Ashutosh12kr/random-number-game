@@ -1,50 +1,113 @@
-import java.util.Random; // Importing the Random class for generating random numbers
-import java.util.Scanner; // Importing the Scanner class for user input
+import java.util.InputMismatchException;
+import java.util.Random;
+import java.util.Scanner;
 
-// Class representing the guessing game
+/**
+ * A modular and interactive Number Guessing Game.
+ */
 class GuessingGame {
-    private int randomNumber; // Variable to store the random number
-    private int attempts; // Variable to count the number of attempts
-    private Scanner scanner; // Scanner object for user input
+    private int randomNumber;
+    private int maxNumber;
+    private int attempts;
+    private final Scanner scanner;
 
-    // Constructor to initialize the game
     public GuessingGame() {
-        Random random = new Random(); // Create a Random object
-        this.randomNumber = random.nextInt(100) + 1; // Generate a random number between 1 and 100
-        this.attempts = 0; // Initialize attempts to 0
-        this.scanner = new Scanner(System.in); // Initialize the scanner
+        scanner = new Scanner(System.in);
     }
 
-    // Method to start the game
-    public void play() {
-        System.out.println("Welcome to the Number Guessing Game!"); // Welcome message
-        System.out.println("I have selected a random number between 1 and 100."); // Instructions
+    /**
+     * Starts the game loop with menu and replay option.
+     */
+    public void start() {
+        System.out.println("🎲 Welcome to the Number Guessing Game!");
+        do {
+            chooseDifficulty();
+            playGame();
+        } while (askToPlayAgain());
 
-        // Loop until the player guesses the correct number
+        System.out.println("Thank you for playing! Goodbye 👋");
+        scanner.close();
+    }
+
+    /**
+     * Lets the user choose the difficulty level.
+     */
+    private void chooseDifficulty() {
+        System.out.println("\nChoose a difficulty level:");
+        System.out.println("1. Easy (1-50)");
+        System.out.println("2. Medium (1-100)");
+        System.out.println("3. Hard (1-200)");
+
+        int choice = getValidInt("Enter your choice (1-3): ", 1, 3);
+
+        switch (choice) {
+            case 1 -> maxNumber = 50;
+            case 2 -> maxNumber = 100;
+            case 3 -> maxNumber = 200;
+        }
+
+        Random random = new Random();
+        randomNumber = random.nextInt(maxNumber) + 1;
+        attempts = 0;
+        System.out.println("🔢 I've picked a number between 1 and " + maxNumber + ". Try to guess it!");
+    }
+
+    /**
+     * Main game logic loop.
+     */
+    private void playGame() {
         while (true) {
-            System.out.print("Enter your guess: "); // Prompt for user input
-            int playerGuess = scanner.nextInt(); // Read the player's guess
-            attempts++; // Increment the attempt count
+            int guess = getValidInt("Enter your guess: ", 1, maxNumber);
+            attempts++;
 
-            // Check if the guess is too low, too high, or correct
-            if (playerGuess < randomNumber) {
-                System.out.println("Too low! Try again."); // Hint for low guess
-            } else if (playerGuess > randomNumber) {
-                System.out.println("Too high! Try again."); // Hint for high guess
+            if (guess < randomNumber) {
+                System.out.println("📉 Too low! Try again.");
+            } else if (guess > randomNumber) {
+                System.out.println("📈 Too high! Try again.");
             } else {
-                // Player guessed correctly
-                System.out.println("Congratulations! You guessed the number in " + attempts + " attempts.");
-                break; // Exit the loop
+                System.out.println("🎉 Congratulations! You guessed the number in " + attempts + " attempts.");
+                break;
             }
         }
-        scanner.close(); // Close the scanner to free resources
+    }
+
+    /**
+     * Asks the user if they want to play again.
+     */
+    private boolean askToPlayAgain() {
+        System.out.print("🔁 Do you want to play again? (y/n): ");
+        String response = scanner.next().trim().toLowerCase();
+        return response.equals("y");
+    }
+
+    /**
+     * Ensures input is an integer within the expected range.
+     */
+    private int getValidInt(String prompt, int min, int max) {
+        int input;
+        while (true) {
+            try {
+                System.out.print(prompt);
+                input = scanner.nextInt();
+                if (input < min || input > max) {
+                    System.out.println("⚠️ Please enter a number between " + min + " and " + max + ".");
+                } else {
+                    return input;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("❌ Invalid input. Please enter a valid number.");
+                scanner.next(); // Clear the invalid input
+            }
+        }
     }
 }
 
-// Main class to run the game
-public class main {
+/**
+ * Main class to launch the game.
+ */
+public class Main {
     public static void main(String[] args) {
-        GuessingGame game = new GuessingGame(); // Create a new instance of GuessingGame
-        game.play(); // Start the game
+        GuessingGame game = new GuessingGame();
+        game.start();
     }
 }
