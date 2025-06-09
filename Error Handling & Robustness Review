@@ -1,0 +1,7 @@
+| **Type**                   | **Implemented?** | **Details**                                                                          |
+| -------------------------- | ---------------- | ------------------------------------------------------------------------------------ |
+| **Invalid Input Handling** | ✅ Yes            | `try-catch` block in `getValidInt()` handles `InputMismatchException`                |
+| **Out-of-Range Handling**  | ✅ Yes            | Explicit range check with feedback                                                   |
+| **Scanner Cleanup**        | ✅ Yes            | `scanner.next()` used to clear bad input; scanner closed in `start()`                |
+| **Input Re-Prompting**     | ✅ Yes            | Loops until valid input is received                                                  |
+| **Replay Input Handling**  | 🟡 Partial       | Accepts `y` to replay, but **doesn’t validate other input** (e.g., `n`, `yes`, typo) |
