@@ -1,0 +1,19 @@
+*About your note on Event Handling & Processing and optimization of event listeners/delegation:
+Since this is a console-based Java application (not a GUI app), it doesn't have traditional event listeners like GUI frameworks (Swing, JavaFX) do. The input handling here is synchronous and blocking (via Scanner), so typical event delegation concepts don’t directly apply.
+
+*If you plan to upgrade this game to a GUI version (e.g., using Swing or JavaFX), here are some tips for event handling optimization:
+Use a single ActionListener or event handler for multiple components where possible, distinguishing actions via the event source or action commands to reduce overhead.
+
+.Avoid adding multiple listeners for the same event unnecessarily.
+
+.Use lambda expressions or method references for concise event handlers (Java 8+).
+
+.Debounce or throttle input events if needed to prevent flooding handlers with rapid events.
+
+.Clean up listeners when components are no longer used to avoid memory leaks.
+
+*For this console app:
+Your getValidInt method effectively processes user input events (scanner inputs) and handles invalid inputs.
+
+Since this is a command-line interface, the main “event” loop is user input waiting and reacting synchronously.
+
