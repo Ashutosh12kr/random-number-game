@@ -1,0 +1,8 @@
+| **Feature**                      | **Description**                                      | **Status**          | **Comment**                                                      |
+| -------------------------------- | ---------------------------------------------------- | ------------------- | ---------------------------------------------------------------- |
+| **Random Number Generation**     | Random number between 1–100 is picked by computer    | ✅ Fully Implemented | Clearly stated and shown in flowchart and example output         |
+| **User Input Handling**          | User is prompted to input guesses                    | ✅ Fully Implemented | Slides show guess-input interaction                              |
+| **Feedback on Guess**            | Tells user if guess is too high, too low, or correct | ✅ Fully Implemented | Shown with example inputs: 50 → "Too low", 75 → "Too high", etc. |
+| **Loop Until Correct**           | Game continues until correct number is guessed       | ✅ Fully Implemented | Flowchart and description include repeated guessing              |
+| **Basic Flow Control (If-Else)** | Logic checks guess vs. random number                 | ✅ Fully Implemented | Mentioned in summary slide                                       |
+| **Use of Loops**                 | Used to keep prompting until correct guess           | ✅ Fully Implemented | Covered in slide  summary                                       |
