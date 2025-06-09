@@ -105,7 +105,7 @@ class GuessingGame {
 /**
  * Main class to launch the game.
  */
-public class Main {
+public class main {
     public static void main(String[] args) {
         GuessingGame game = new GuessingGame();
         game.start();
