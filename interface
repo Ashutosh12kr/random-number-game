@@ -1,36 +1,31 @@
-// MySQLDatabase.java
-import java.sql.*;
+public interface NumberGuessingGameInterface {
+    /**
+     * Starts the game, including setup, play loop, and replay option.
+     */
+    void start();
 
-public class MySQLDatabase implements DatabaseOperations {
-    private Connection conn;
-    private Statement stmt;
-    private ResultSet rs;
+    /**
+     * Allows the player to choose a difficulty level.
+     */
+    void chooseDifficulty();
 
-    private final String url = "jdbc:mysql://localhost:3306/your_database";
-    private final String user = "your_username";
-    private final String password = "your_password";
+    /**
+     * Runs the main guessing game loop until the player guesses correctly.
+     */
+    void playGame();
 
-    @Override
-    public void connect() throws SQLException {
-        conn = DriverManager.getConnection(url, user, password);
-        System.out.println("Connected to the database.");
-    }
+    /**
+     * Asks the player if they want to play again.
+     * @return true if player wants to replay, false otherwise
+     */
+    boolean askToPlayAgain();
 
-    @Override
-    public void fetchData() throws SQLException {
-        stmt = conn.createStatement();
-        rs = stmt.executeQuery("SELECT * FROM your_table");
-
-        while (rs.next()) {
-            System.out.println("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));
-        }
-    }
-
-    @Override
-    public void close() throws SQLException {
-        if (rs != null) rs.close();
-        if (stmt != null) stmt.close();
-        if (conn != null) conn.close();
-        System.out.println("Connection closed.");
-    }
+    /**
+     * Validates and returns a user input integer within a given range.
+     * @param prompt prompt message shown to the player
+     * @param min minimum allowed input
+     * @param max maximum allowed input
+     * @return valid integer input from the player
+     */
+    int getValidInt(String prompt, int min, int max);
 }
