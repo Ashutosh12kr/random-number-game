@@ -1,0 +1,105 @@
+. Main Class (Main) — Entry Point
+Role: Starts the game by creating a GuessingGame object and calling its start() method.
+
+Integration: This is the launcher that kicks off the entire game logic contained inside the GuessingGame class.
+
+java
+Copy code
+public class Main {
+    public static void main(String[] args) {
+        GuessingGame game = new GuessingGame();
+        game.start();  // Entry to game loop
+    }
+}
+2. start() Method — The Game Loop
+Role: Controls the overall game flow, repeatedly running the game until the user decides to stop.
+
+Integration:
+
+Calls chooseDifficulty() to set the game's difficulty and generate a new secret number.
+
+Calls playGame() to let the user guess the number.
+
+Calls askToPlayAgain() to decide whether to repeat or exit.
+
+Uses a do-while loop to cycle through these steps as long as the player wants.
+
+3. chooseDifficulty() — Setup Before Each Round
+Role: Presents difficulty options to the player, takes their choice, sets the maxNumber range, and generates a random secret number within this range.
+
+Integration:
+
+Uses getValidInt() to safely receive a valid difficulty choice.
+
+Sets the range for the guessing game (maxNumber).
+
+Initializes the secret randomNumber and resets attempts counter.
+
+Prepares the game environment before starting guesses.
+
+4. playGame() — Main Gameplay
+Role: Repeatedly prompts the player to guess the number until they succeed.
+
+Integration:
+
+Uses getValidInt() to safely get each guess within the valid range.
+
+Provides immediate feedback: "Too low," "Too high," or "Correct!"
+
+Tracks the number of attempts.
+
+Ends the current round when the player guesses correctly.
+
+5. askToPlayAgain() — User-Controlled Replay
+Role: Asks the user if they want to play another round.
+
+Integration:
+
+Reads input (y/n) safely.
+
+Returns a boolean used in the do-while loop in start().
+
+Controls whether the game restarts or exits.
+
+6. getValidInt(prompt, min, max) — Input Validation
+Role: Centralizes and standardizes integer input reading and validation.
+
+Integration:
+
+Used everywhere numeric input is needed (chooseDifficulty() and playGame()).
+
+Catches invalid inputs gracefully.
+
+Ensures that values entered by the user are within expected ranges.
+
+Prevents the program from crashing due to bad input.
+
+This method enables smooth communication with the user by providing clear prompts and error messages.
+
+How These Components Work Together Smoothly:
+The Main class triggers the entire process.
+
+The start() method loops the gameplay with proper initialization each time.
+
+The difficulty choice sets up the parameters for the guessing session.
+
+The gameplay loop offers real-time feedback and input validation, keeping the player engaged.
+
+The input validation method ensures smooth interaction by preventing invalid inputs.
+
+The play-again prompt cleanly controls whether to continue or finish the program.
+
+Throughout, the use of emojis and clear messages helps make the experience enjoyable and clear.
+
+*Summery diagram
+Main.main()
+    ↓
+GuessingGame.start()
+    ├── chooseDifficulty() -- sets range & secret number
+    ├── playGame() -- user guesses with feedback
+    ├── askToPlayAgain() -- decide continue or exit
+    └── loops back or exits
+         ↑               ↑
+       uses             uses
+         │               │
+  getValidInt() ——— input validation
